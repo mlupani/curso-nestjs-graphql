@@ -23,6 +23,7 @@ export class HelloWorldResolver {
     @Args('to', {
       type: () => Int,
       nullable: true,
+      defaultValue: 6,
     })
     to: number = 6,
   ): number {

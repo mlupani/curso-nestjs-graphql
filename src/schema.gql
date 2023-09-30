@@ -2,6 +2,19 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Todo {
+  id: Int!
+  description: String!
+  done: Boolean!
+}
+
+type AggregationType {
+  totalTodos: Int!
+  completedTodos: Int!
+  uncompletedTodos: Int!
+  totalCompleted: Int! @deprecated(reason: "use completedTodos instead")
+}
+
 type Query {
   """retorna hola mundo"""
   hello: String!
@@ -10,5 +23,31 @@ type Query {
   randomNumber: Float!
 
   """retorna un numero aleatorio entre 0 y 10"""
-  randomFromZeroTo(to: Int): Int!
+  randomFromZeroTo(to: Int = 6): Int!
+
+  """retorna una lista de todos"""
+  todos(status: Boolean): [Todo!]!
+
+  """retorna un todo"""
+  todo(id: Int!): Todo!
+  totalTodos: Int!
+  completedTodos: Int!
+  uncompletedTodos: Int!
+  aggregations: AggregationType!
+}
+
+type Mutation {
+  createTodo(CreateTodoInput: CreateTodoInput!): Todo!
+  updateTodo(updateTodoImput: UpdateTodoInput!): Todo!
+  deleteTodo(id: Int!): Boolean!
+}
+
+input CreateTodoInput {
+  description: String!
+}
+
+input UpdateTodoInput {
+  id: Int!
+  description: String
+  done: Boolean
 }
